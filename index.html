@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeGPT - Générateur de Code</title>
+</head>
+<body>
+    <h1>CodeGPT - Génération de Code</h1>
+
+    <textarea id="input_code" rows="10" cols="50"></textarea><br><br>
+    <button onclick="generateCode()">Générer Code</button>
+
+    <h3>Code généré :</h3>
+    <pre id="generated_code"></pre>
+
+    <script>
+        async function generateCode() {
+            const input_code = document.getElementById('input_code').value;
+
+            const response = await fetch('https://<ton-codespace-id>.githubpreview.dev/generate_code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ input_code: input_code })
+            });
+
+            const data = await response.json();
+            document.getElementById('generated_code').textContent = data.generated_code;
+        }
+    </script>
+</body>
+</html>
